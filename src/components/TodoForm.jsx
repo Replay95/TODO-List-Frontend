@@ -4,16 +4,16 @@ import PropTypes from "prop-types";
 function TodoForm({ addTodo }) {
   const [text, setText] = useState("");
 
-  function handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (text.trim()) {
       addTodo(text);
       setText("");
     }
-  }
+  };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="todo-form" onSubmit={handleSubmit}>
       <input
         type="text"
         value={text}

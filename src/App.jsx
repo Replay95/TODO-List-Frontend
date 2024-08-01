@@ -7,45 +7,67 @@ function App() {
 
   useEffect(() => {
     const fetchTodos = async () => {
-      const response = await fetch("http://localhost:5002/api/todos");
-      const data = await response.json();
-      setTodos(data);
+      try {
+        const response = await fetch("http://localhost:5002/api/todos");
+        const data = await response.json();
+        setTodos(data);
+      } catch (error) {
+        console.error("Error fetching todos:", error);
+      }
     };
     fetchTodos();
   }, []);
 
   async function addTodo(text) {
-    const response = await fetch("http://localhost:5002/api/todos", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ text }),
-    });
-    const newTodo = await response.json();
-    setTodos([...todos, newTodo]);
+    const newTodo = { text, completed: false };
+    try {
+      const response = await fetch("http://localhost:5002/api/todos", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newTodo),
+      });
+      const createdTodo = await response.json();
+      setTodos([...todos, createdTodo]);
+    } catch (error) {
+      console.error("Error adding todo:", error);
+    }
   }
 
   async function toggleComplete(id) {
-    const todo = todos.find((todo) => todo.id === id);
-    const response = await fetch(`http://localhost:5002/api/todos/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ completed: !todo.completed }),
-    });
-    const updatedTodo = await response.json();
-    setTodos(todos.map((todo) => (todo.id === id ? updatedTodo : todo)));
+    const updatedTodos = todos.map((todo) =>
+      todo.id === id ? { ...todo, completed: !todo.completed } : todo
+    );
+    setTodos(updatedTodos);
+    try {
+      await fetch(`http://localhost:5002/api/todos/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          completed: updatedTodos.find((todo) => todo.id === id).completed,
+        }),
+      });
+    } catch (error) {
+      console.error("Error updating todo:", error);
+    }
   }
 
   async function deleteTodo(id) {
-    await fetch(`http://localhost:5002/api/todos/${id}`, { method: "DELETE" });
-    setTodos(todos.filter((todo) => todo.id !== id));
+    try {
+      await fetch(`http://localhost:5002/api/todos/${id}`, {
+        method: "DELETE",
+      });
+      setTodos(todos.filter((todo) => todo.id !== id));
+    } catch (error) {
+      console.error("Error deleting todo:", error);
+    }
   }
 
   return (
-    <div>
+    <div className="app-container">
       <h1>TODOリスト</h1>
       <TodoForm addTodo={addTodo} />
       <TodoList

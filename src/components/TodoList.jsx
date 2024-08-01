@@ -2,17 +2,22 @@ import PropTypes from "prop-types";
 
 function TodoList({ todos, toggleComplete, deleteTodo }) {
   return (
-    <ul>
+    <ul className="todo-list">
       {todos.map((todo) => (
-        <li
-          key={todo.id}
-          style={{ textDecoration: todo.completed ? "line-through" : "none" }}
-        >
-          {todo.text}
-          <button onClick={() => toggleComplete(todo.id)}>
-            {todo.completed ? "未完了にする" : "完了にする"}
-          </button>
-          <button onClick={() => deleteTodo(todo.id)}>削除</button>
+        <li key={todo.id} className="todo-item">
+          <span
+            style={{
+              textDecoration: todo.completed ? "line-through" : "none",
+            }}
+          >
+            {todo.text}
+          </span>
+          <div className="task-buttons">
+            <button onClick={() => toggleComplete(todo.id)}>
+              {todo.completed ? "タスク継続" : "タスク完了"}
+            </button>
+            <button onClick={() => deleteTodo(todo.id)}>削除</button>
+          </div>
         </li>
       ))}
     </ul>
