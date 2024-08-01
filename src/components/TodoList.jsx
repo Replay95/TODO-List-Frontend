@@ -14,7 +14,7 @@ function TodoList({ todos, toggleComplete, deleteTodo }) {
           </span>
           <div className="task-buttons">
             <button onClick={() => toggleComplete(todo.id)}>
-              {todo.completed ? "タスク継続" : "タスク完了"}
+              {todo.completed ? "タスク復活" : "タスク終了"}
             </button>
             <button onClick={() => deleteTodo(todo.id)}>削除</button>
           </div>
