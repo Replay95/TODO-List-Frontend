@@ -14,7 +14,7 @@ function App() {
     fetchTodos();
   }, []);
 
-  const addTodo = async (text) => {
+  async function addTodo(text) {
     const response = await fetch("http://localhost:5002/api/todos", {
       method: "POST",
       headers: {
@@ -24,9 +24,9 @@ function App() {
     });
     const newTodo = await response.json();
     setTodos([...todos, newTodo]);
-  };
+  }
 
-  const toggleComplete = async (id) => {
+  async function toggleComplete(id) {
     const todo = todos.find((todo) => todo.id === id);
     const response = await fetch(`http://localhost:5002/api/todos/${id}`, {
       method: "PUT",
@@ -37,12 +37,12 @@ function App() {
     });
     const updatedTodo = await response.json();
     setTodos(todos.map((todo) => (todo.id === id ? updatedTodo : todo)));
-  };
+  }
 
-  const deleteTodo = async (id) => {
+  async function deleteTodo(id) {
     await fetch(`http://localhost:5002/api/todos/${id}`, { method: "DELETE" });
     setTodos(todos.filter((todo) => todo.id !== id));
-  };
+  }
 
   return (
     <div>
