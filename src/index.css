@@ -1,92 +1,62 @@
-body {
+.app {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
   min-height: 100vh;
-  margin: 0;
-  background-color: #f4f4f9;
-  font-family: Arial, sans-serif;
-}
-
-.app-container {
-  width: 90%;
-  max-width: 500px;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  background-color: #ffffff;
-  text-align: center;
+  background-color: #f8f9fa;
 }
 
 h1 {
-  font-size: 1.5rem;
-  margin-bottom: 1.5rem;
-  color: #333333;
+  font-size: 2rem;
+  margin-bottom: 1rem;
 }
 
-form {
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
   display: flex;
-  gap: 10px;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 400px;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  background-color: #fff;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-input[type="text"] {
-  padding: 10px;
-  font-size: 1rem;
-  border: 1px solid #000000;
-  border-radius: 4px;
-  flex-grow: 1;
-  max-width: 300px;
+.task-buttons {
+  display: flex;
+  gap: 0.5rem;
 }
 
 button {
-  padding: 10px 20px;
-  font-size: 1rem;
-  font-weight: bold;
-  color: #ffffff;
-  background-color: #007bff;
-  border: 1px solid #000000;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid black;
   border-radius: 4px;
+  background-color: #007bff;
+  color: #fff;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 button:hover {
   background-color: #0056b3;
 }
 
-ul {
-  list-style: none;
-  padding: 0;
-  margin-top: 20px;
-}
-
-li {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-bottom: 1px solid #000000;
-}
-
-li span {
+input[type="text"] {
+  border: 1px solid black;
+  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
   font-size: 1rem;
-  font-weight: bold;
-  flex-grow: 1;
-  margin-right: 10px;
-  text-decoration: none;
 }
 
-li button {
-  font-size: 0.9rem;
-  margin-left: 5px;
-  border: 1px solid #000000;
-  margin-left: auto;
-}
-
-.task-buttons {
-  display: flex;
-  gap: 5px;
-  margin-left: auto;
+.error {
+  color: red;
+  margin-bottom: 1rem;
 }

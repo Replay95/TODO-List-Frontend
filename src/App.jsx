@@ -7,7 +7,7 @@ function App() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    async function fetchTodos() {
+    const fetchTodos = async () => {
       try {
         const response = await fetch("http://localhost:5002/api/todos");
         if (!response.ok) {
@@ -17,9 +17,9 @@ function App() {
         setTodos(data);
       } catch (error) {
         console.error("Error fetching todos:", error);
-        setError("タスクの取得に失敗しました");
+        setError("タスクの取得に失敗しました。");
       }
-    }
+    };
     fetchTodos();
   }, []);
 
@@ -40,7 +40,7 @@ function App() {
       setTodos([...todos, createdTodo]);
     } catch (error) {
       console.error("Error adding todo:", error);
-      setError("タスクの追加に失敗しました");
+      setError("タスクの追加に失敗しました。");
     }
   }
 
@@ -64,7 +64,27 @@ function App() {
       }
     } catch (error) {
       console.error("Error updating todo:", error);
-      setError("タスクの更新に失敗しました");
+      setError("タスクの更新に失敗しました。");
+    }
+  }
+
+  async function updateTodoText(id, newText) {
+    try {
+      const response = await fetch(`http://localhost:5002/api/todos/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ text: newText }),
+      });
+      if (!response.ok) {
+        throw new Error("Failed to update todo text");
+      }
+      const updatedTodo = await response.json();
+      setTodos(todos.map((todo) => (todo.id === id ? updatedTodo : todo)));
+    } catch (error) {
+      console.error("Error updating todo text:", error);
+      setError("タスクの内容更新に失敗しました。");
     }
   }
 
@@ -79,19 +99,20 @@ function App() {
       setTodos(todos.filter((todo) => todo.id !== id));
     } catch (error) {
       console.error("Error deleting todo:", error);
-      setError("タスクの削除に失敗しました");
+      setError("タスクの削除に失敗しました。");
     }
   }
 
   return (
-    <div className="app-container">
+    <div className="app">
       <h1>TODOリスト</h1>
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p className="error">{error}</p>}
       <TodoForm addTodo={addTodo} />
       <TodoList
         todos={todos}
         toggleComplete={toggleComplete}
         deleteTodo={deleteTodo}
+        updateTodoText={updateTodoText}
       />
     </div>
   );
