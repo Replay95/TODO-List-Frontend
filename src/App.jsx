@@ -5,11 +5,12 @@ import TodoList from "./components/TodoList";
 function App() {
   const [todos, setTodos] = useState([]);
   const [error, setError] = useState(null);
+  const BASE_URL = "http://localhost:5002";
 
   useEffect(() => {
     const fetchTodos = async () => {
       try {
-        const response = await fetch("http://localhost:5002/api/todos");
+        const response = await fetch(`${BASE_URL}/api/todos`);
         if (!response.ok) {
           throw new Error("Failed to fetch todos");
         }
@@ -26,7 +27,7 @@ function App() {
   async function addTodo(text) {
     const newTodo = { text, completed: false };
     try {
-      const response = await fetch("http://localhost:5002/api/todos", {
+      const response = await fetch(`${BASE_URL}/api/todos`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -50,7 +51,7 @@ function App() {
     );
     setTodos(updatedTodos);
     try {
-      const response = await fetch(`http://localhost:5002/api/todos/${id}`, {
+      const response = await fetch(`${BASE_URL}/api/todos/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -70,7 +71,7 @@ function App() {
 
   async function updateTodoText(id, newText) {
     try {
-      const response = await fetch(`http://localhost:5002/api/todos/${id}`, {
+      const response = await fetch(`${BASE_URL}/api/todos/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -90,7 +91,7 @@ function App() {
 
   async function deleteTodo(id) {
     try {
-      const response = await fetch(`http://localhost:5002/api/todos/${id}`, {
+      const response = await fetch(`${BASE_URL}/api/todos/${id}`, {
         method: "DELETE",
       });
       if (!response.ok) {

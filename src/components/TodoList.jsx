@@ -4,9 +4,9 @@ import PropTypes from "prop-types";
 function TodoList({ todos, toggleComplete, deleteTodo, updateTodoText }) {
   return (
     <ul>
-      {todos.map((todo) => (
+      {todos.map((todo, index) => (
         <TodoItem
-          key={todo.id}
+          key={`${todo.id}_${index}`}
           todo={todo}
           toggleComplete={toggleComplete}
           deleteTodo={deleteTodo}
