@@ -56,9 +56,12 @@ function TodoItem({ todo, toggleComplete, deleteTodo, updateTodoText }) {
         </span>
       )}
       <div className="task-buttons">
-        <button onClick={() => toggleComplete(todo.id)}>
-          {todo.completed ? "タスク完了" : "タスク継続"}
-        </button>
+        <input
+          type="checkbox"
+          checked={todo.completed}
+          onChange={() => toggleComplete(todo.id)}
+          className="checkbox"
+        />
         <button onClick={() => deleteTodo(todo.id)}>削除</button>
       </div>
     </li>
