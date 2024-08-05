@@ -21,15 +21,15 @@ function TodoItem({ todo, toggleComplete, deleteTodo, updateTodoText }) {
   const [isEditing, setIsEditing] = useState(false);
   const [newText, setNewText] = useState(todo.text);
 
-  const handleEditToggle = () => {
+  function handleEditToggle() {
     setIsEditing(!isEditing);
     setNewText(todo.text);
-  };
+  }
 
-  const handleUpdate = async () => {
+  async function handleUpdate() {
     await updateTodoText(todo.id, newText);
     setIsEditing(false);
-  };
+  }
 
   return (
     <li>

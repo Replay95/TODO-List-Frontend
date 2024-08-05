@@ -8,7 +8,7 @@ function TodoList() {
   const BASE_URL = "http://localhost:5002";
 
   useEffect(() => {
-    const fetchTodos = async () => {
+    async function fetchTodos() {
       try {
         const response = await fetch(`${BASE_URL}/api/todos`);
         if (!response.ok) {
@@ -20,7 +20,7 @@ function TodoList() {
         console.error("Error fetching todos:", error);
         setError("タスクの取得に失敗しました。");
       }
-    };
+    }
     fetchTodos();
   }, []);
 
@@ -103,18 +103,19 @@ function TodoList() {
       setError("タスクの削除に失敗しました。");
     }
   }
-
   return (
     <div className="app">
       <h1>TODOリスト</h1>
       {error && <p className="error">{error}</p>}
       <TodoForm addTodo={addTodo} />
-      <TodoTask
-        todos={todos}
-        toggleComplete={toggleComplete}
-        deleteTodo={deleteTodo}
-        updateTodoText={updateTodoText}
-      />
+      <div className="todo-list">
+        <TodoTask
+          todos={todos}
+          toggleComplete={toggleComplete}
+          deleteTodo={deleteTodo}
+          updateTodoText={updateTodoText}
+        />
+      </div>
     </div>
   );
 }
