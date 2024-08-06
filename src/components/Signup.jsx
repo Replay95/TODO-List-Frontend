@@ -10,11 +10,12 @@ function Signup() {
   const [message, setMessage] = useState(null);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+  const BASE_URL = "http://localhost:5002";
 
   async function handleSignup(e) {
     e.preventDefault();
     try {
-      const res = await fetch("http://localhost:5002/api/signup", {
+      const res = await fetch(`${BASE_URL}/api/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

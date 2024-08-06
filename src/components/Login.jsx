@@ -9,13 +9,14 @@ function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const BASE_URL = "http://localhost:5002";
 
   async function handleSubmit(e) {
     e.preventDefault();
     setError("");
 
     try {
-      const response = await fetch("http://localhost:5002/api/login", {
+      const response = await fetch(`${BASE_URL}/api/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

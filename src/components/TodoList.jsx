@@ -41,7 +41,7 @@ function TodoList() {
       setTodos([...todos, createdTodo]);
     } catch (error) {
       console.error("Error adding todo:", error);
-      setError("タスクの追加に失敗しました。");
+      setError("タスクの追加に失敗しました");
     }
   }
 
@@ -65,7 +65,7 @@ function TodoList() {
       }
     } catch (error) {
       console.error("Error updating todo:", error);
-      setError("タスクの更新に失敗しました。");
+      setError("タスクの更新に失敗しました");
     }
   }
 
@@ -85,7 +85,7 @@ function TodoList() {
       setTodos(todos.map((todo) => (todo.id === id ? updatedTodo : todo)));
     } catch (error) {
       console.error("Error updating todo text:", error);
-      setError("タスクの内容更新に失敗しました。");
+      setError("タスクの内容更新に失敗しました");
     }
   }
 
@@ -100,7 +100,7 @@ function TodoList() {
       setTodos(todos.filter((todo) => todo.id !== id));
     } catch (error) {
       console.error("Error deleting todo:", error);
-      setError("タスクの削除に失敗しました。");
+      setError("タスクの削除に失敗しました");
     }
   }
   return (
