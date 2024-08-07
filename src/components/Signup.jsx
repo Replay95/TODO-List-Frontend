@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaLock, FaUser } from "react-icons/fa";
 import { IoMail } from "react-icons/io5";
+const BASE_URL = "http://localhost:5002";
 
 function Signup() {
   const [username, setUsername] = useState("");
@@ -10,7 +11,6 @@ function Signup() {
   const [message, setMessage] = useState(null);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const BASE_URL = "http://localhost:5002";
 
   async function handleSignup(e) {
     e.preventDefault();

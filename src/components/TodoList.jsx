@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import TodoForm from "./TodoForm";
 import TodoTask from "./TodoTask";
+const BASE_URL = "http://localhost:5002";
 
 function TodoList() {
   const [todos, setTodos] = useState([]);
   const [error, setError] = useState(null);
-  const BASE_URL = "http://localhost:5002";
 
   useEffect(() => {
     async function fetchTodos() {
