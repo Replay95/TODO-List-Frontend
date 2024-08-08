@@ -16,6 +16,7 @@ function TodoForm({ addTodo }) {
     <form className="todo-form" onSubmit={handleSubmit}>
       <input
         type="text"
+        placeholder="タスク入力欄"
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
