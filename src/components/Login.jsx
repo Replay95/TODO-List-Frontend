@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaLock, FaUser } from "react-icons/fa";
+import { FaLock } from "react-icons/fa";
 import { IoMail } from "react-icons/io5";
 const BASE_URL = "http://localhost:5002";
 
 function Login() {
-  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -21,7 +20,7 @@ function Login() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username, email, password }),
+        body: JSON.stringify({ email, password }),
       });
 
       if (response.ok) {
@@ -41,16 +40,6 @@ function Login() {
       <h2>ログイン</h2>
       {error && <div className="error">{error}</div>}
       <form onSubmit={handleSubmit}>
-        <div className="input-group">
-          <input
-            type="text"
-            placeholder="ユーザー名"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-          <FaUser className="icon" />
-        </div>
         <div className="input-group">
           <input
             type="email"
