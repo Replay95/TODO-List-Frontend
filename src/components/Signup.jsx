@@ -1,11 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaLock, FaUser } from "react-icons/fa";
+import { FaLock } from "react-icons/fa";
 import { IoMail } from "react-icons/io5";
 const BASE_URL = "http://localhost:5002";
 
 function Signup() {
-  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState(null);
@@ -20,7 +19,7 @@ function Signup() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ username, email, password }),
+        body: JSON.stringify({ email, password }),
       });
       if (res.status === 409) {
         const resData = await res.text();
@@ -49,15 +48,6 @@ function Signup() {
       {message && <div className="message">{message}</div>}
       {error && <div className="error">{error}</div>}
       <form onSubmit={handleSignup}>
-        <div className="input-group">
-          <input
-            type="text"
-            placeholder="ユーザー名"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <FaUser className="icon" />
-        </div>
         <div className="input-group">
           <input
             type="email"
