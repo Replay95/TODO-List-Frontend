@@ -21,20 +21,24 @@ function Signup() {
         },
         body: JSON.stringify({ email, password }),
       });
+
+      const resData = await res.json();
+
       if (res.status === 409) {
-        const resData = await res.text();
         setMessage(null);
-        return setError(resData);
+        return setError(resData.message);
       } else if (res.status === 500) {
-        const resData = await res.text();
         setMessage(null);
-        return setError(resData);
+        return setError(resData.message);
       } else if (!res.ok) {
         throw new Error("アカウント作成に失敗しました");
       }
-      const resData = await res.text();
-      setMessage(resData);
+
+      document.cookie = `userId=${resData.data.id}`;
+
+      setMessage(resData.message);
       setError(null);
+      navigate("/todolist");
     } catch (err) {
       console.error("作成エラー:", err);
       setMessage(null);

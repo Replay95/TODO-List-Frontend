@@ -23,11 +23,13 @@ function Login() {
         body: JSON.stringify({ email, password }),
       });
 
+      const resData = await response.json();
+
       if (response.ok) {
+        document.cookie = `userId=${resData.id}`;
         navigate("/todolist");
       } else {
-        const errorMessage = await response.text();
-        setError(errorMessage);
+        setError(resData.message);
       }
     } catch (err) {
       console.error("エラー", err);
