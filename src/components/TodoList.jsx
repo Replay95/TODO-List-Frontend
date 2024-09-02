@@ -6,16 +6,18 @@ const BASE_URL = "http://localhost:5002";
 function TodoList() {
   const [todos, setTodos] = useState([]);
   const [error, setError] = useState(null);
+  const cookieItems = document.cookie.split(";");
+  const user_id = cookieItems[cookieItems.length - 1].split("=")[1];
 
   useEffect(() => {
     async function fetchTodos() {
       try {
-        const response = await fetch(`${BASE_URL}/api/todos`);
+        const response = await fetch(`${BASE_URL}/api/todos/${user_id}`);
         if (!response.ok) {
           throw new Error("Failed to fetch todos");
         }
-        const data = await response.json();
-        setTodos(data);
+        const todoList = await response.json();
+        setTodos(todoList);
       } catch (error) {
         console.error("Error fetching todos:", error);
         setError("タスクの取得に失敗しました。");
@@ -25,14 +27,14 @@ function TodoList() {
   }, []);
 
   async function addTodo(text) {
-    const newTodo = { text, completed: false };
+    const newTodo = { text, completed: false, user_id };
     try {
-      const response = await fetch(`${BASE_URL}/api/todos`, {
+      const response = await fetch(`${BASE_URL}/api/todos/${user_id}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(newTodo),
+        body: JSON.stringify(newTodo, user_id),
       });
       if (!response.ok) {
         throw new Error("Failed to add todo");
